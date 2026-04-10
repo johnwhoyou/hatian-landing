@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import { Navigation } from "@/components/Navigation";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -32,7 +33,10 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${plusJakarta.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body className="bg-background text-text font-body">
+        <Navigation />
+        {children}
+      </body>
     </html>
   );
 }
