@@ -65,6 +65,49 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Features Grid */}
+      <section className="py-16 px-6">
+        <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            {
+              icon: "📷",
+              title: "Receipt Scanning",
+              description: "Snap a receipt, auto-split the items.",
+            },
+            {
+              icon: "👥",
+              title: "Group Expenses",
+              description: "Track balances across trips & roommates.",
+            },
+            {
+              icon: "💸",
+              title: "Easy Settlements",
+              description: "Settle up with proof in one tap.",
+            },
+            {
+              icon: "🔔",
+              title: "Payment Reminders",
+              description: "Gentle nudges so you don't have to ask.",
+            },
+          ].map((feature) => (
+            <div
+              key={feature.title}
+              className="bg-card rounded-2xl p-8 text-center"
+            >
+              <div className="w-12 h-12 rounded-xl bg-accent-light flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">{feature.icon}</span>
+              </div>
+              <h3 className="font-heading text-base font-bold text-text mb-1">
+                {feature.title}
+              </h3>
+              <p className="font-body text-sm text-text-secondary leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
