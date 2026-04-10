@@ -46,6 +46,25 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* Phone Mockup Placeholder */}
+      <section className="pb-16 px-6">
+        <div className="max-w-xs mx-auto">
+          <div className="bg-card rounded-[2.5rem] border-2 border-border p-4 shadow-sm">
+            <div className="bg-surface rounded-[2rem] min-h-[420px] flex flex-col items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-3">
+                <span className="text-2xl">📱</span>
+              </div>
+              <p className="font-body text-sm text-text-secondary">
+                App screenshot
+              </p>
+              <p className="font-body text-xs text-accent mt-1">
+                Coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
