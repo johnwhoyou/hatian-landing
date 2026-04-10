@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* Hatian Philippine Eagle palette — light theme */
+  --color-background: #FBF7F0;
+  --color-card: #FFFFFF;
+  --color-surface: #F5EDE3;
+  --color-text: #3B2314;
+  --color-text-secondary: #8B7B6B;
+  --color-border: #E8DFD4;
+  --color-primary: #7B4F2A;
+  --color-primary-light: #F0E2D0;
+  --color-accent: #D4943A;
+  --color-accent-light: #FDF0DC;
+}
