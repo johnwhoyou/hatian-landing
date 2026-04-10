@@ -22,6 +22,22 @@ export const metadata: Metadata = {
   title: "Hatian — Split expenses with your barkada",
   description:
     "The easiest way to split bills, track group expenses, and settle up with friends. Free, no ads, no subscriptions.",
+  metadataBase: new URL("https://hatian.app"),
+  openGraph: {
+    title: "Hatian — Split expenses with your barkada",
+    description:
+      "The easiest way to split bills, track group expenses, and settle up with friends. Free, no ads, no subscriptions.",
+    url: "https://hatian.app",
+    siteName: "Hatian",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hatian — Split expenses with your barkada",
+    description:
+      "The easiest way to split bills, track group expenses, and settle up with friends. Free, no ads, no subscriptions.",
+  },
 };
 
 export default function RootLayout({
