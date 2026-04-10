@@ -17,3 +17,7 @@
   --color-accent: #D4943A;
   --color-accent-light: #FDF0DC;
 }
+
+html {
+  scroll-behavior: smooth;
+}

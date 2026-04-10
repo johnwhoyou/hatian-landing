@@ -1,0 +1,11 @@
+{"type":"server-started","port":65449,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:65449","screen_dir":"/Users/johnwhoyou/Desktop/Personal/hatian-landing/.superpowers/brainstorm/79708-1775839275/content","state_dir":"/Users/johnwhoyou/Desktop/Personal/hatian-landing/.superpowers/brainstorm/79708-1775839275/state"}
+{"type":"screen-added","file":"/Users/johnwhoyou/Desktop/Personal/hatian-landing/.superpowers/brainstorm/79708-1775839275/content/features.html"}
+{"source":"user-event","type":"click","text":"📷\n    \n      Receipt Scanning\n      Snap a photo of any receipt — Hatian reads it and splits the items automatically. No manual entry.","choice":"receipt-scan","id":null,"timestamp":1775839811386}
+{"source":"user-event","type":"click","text":"📷\n    \n      Receipt Scanning\n      Snap a photo of any receipt — Hatian reads it and splits the items automatically. No manual entry.","choice":"receipt-scan","id":null,"timestamp":1775839812251}
+{"source":"user-event","type":"click","text":"🔔\n    \n      Payment Reminders\n      Gentle nudges for overdue balances so you don't have to be the one asking.","choice":"reminders","id":null,"timestamp":1775839826501}
+{"source":"user-event","type":"click","text":"💸\n    \n      Easy Settlements\n      Settle up with one tap. Attach proof of payment and get confirmation from the other person.","choice":"settlements","id":null,"timestamp":1775839827335}
+{"source":"user-event","type":"click","text":"👥\n    \n      Group Expenses\n      Create groups for trips, roommates, or your barkada. Track who owes what across multiple expenses.","choice":"groups","id":null,"timestamp":1775839828835}
+{"source":"user-event","type":"click","text":"📷\n    \n      Receipt Scanning\n      Snap a photo of any receipt — Hatian reads it and splits the items automatically. No manual entry.","choice":"receipt-scan","id":null,"timestamp":1775839831001}
+{"type":"screen-added","file":"/Users/johnwhoyou/Desktop/Personal/hatian-landing/.superpowers/brainstorm/79708-1775839275/content/layout-design.html"}
+{"type":"screen-added","file":"/Users/johnwhoyou/Desktop/Personal/hatian-landing/.superpowers/brainstorm/79708-1775839275/content/waiting.html"}
+{"type":"server-stopped","reason":"idle timeout"}
