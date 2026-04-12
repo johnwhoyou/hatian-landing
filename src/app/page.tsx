@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main>
@@ -5,9 +7,14 @@ export default function Home() {
       <section className="text-center pt-20 pb-12 px-6">
         <div className="max-w-5xl mx-auto">
           {/* App icon */}
-          <div className="w-[72px] h-[72px] rounded-[20px] bg-gradient-to-br from-accent to-primary mx-auto mb-6 flex items-center justify-center shadow-lg">
-            <span className="text-4xl">🦅</span>
-          </div>
+          <Image
+            src="/hatian.png"
+            alt="Hatian app icon"
+            width={72}
+            height={72}
+            className="mx-auto mb-6 rounded-[20px] shadow-lg"
+            priority
+          />
 
           <h1 className="font-heading text-5xl md:text-6xl font-extrabold text-text leading-tight mb-4">
             Split expenses.
