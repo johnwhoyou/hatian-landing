@@ -19,7 +19,7 @@ export function Navigation() {
         </Link>
         <a
           href="#download"
-          className="bg-text text-background px-5 py-2 rounded-lg text-sm font-body font-semibold hover:opacity-90 transition-opacity"
+          className="bg-text text-background px-6 py-2 rounded-full text-sm font-body font-semibold hover:opacity-90 transition-opacity"
         >
           Download
         </a>
