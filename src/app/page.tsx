@@ -8,7 +8,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           {/* App icon */}
           <Image
-            src="/hatian.png"
+            src="/hatian_icon.jpg"
             alt="Hatian app icon"
             width={72}
             height={72}

@@ -7,7 +7,7 @@ export function Navigation() {
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/hatian.png"
+            src="/hatian_icon.jpg"
             alt="Hatian logo"
             width={32}
             height={32}
