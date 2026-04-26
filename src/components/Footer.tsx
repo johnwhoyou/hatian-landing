@@ -12,6 +12,10 @@ export function Footer() {
           ·{" "}
           <Link href="/terms" className="text-primary hover:underline">
             Terms
+          </Link>{" "}
+          ·{" "}
+          <Link href="/support" className="text-primary hover:underline">
+            Support
           </Link>
         </p>
       </div>
