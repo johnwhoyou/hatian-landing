@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
             Privacy Policy
           </h1>
           <p className="font-body text-sm text-text-secondary">
-            Effective date: April 12, 2026
+            Effective date: May 29, 2026
           </p>
         </div>
 
@@ -82,9 +82,14 @@ export default function PrivacyPolicy() {
                   Usage data
                 </h3>
                 <p>
-                  We collect anonymous, aggregated usage data (e.g., which
-                  features are used most) to improve the app. This data cannot
-                  be used to identify you personally.
+                  We use{" "}
+                  <strong className="text-text">PostHog</strong> to collect
+                  pseudonymous product-usage data (e.g., which features are used
+                  and where people drop off) so we can improve the app. Events
+                  are keyed to an internal account identifier — never your name,
+                  email, or username — and we never send expense descriptions or
+                  exact amounts (monetary values are grouped into broad ranges
+                  before they leave your device).
                 </p>
               </div>
             </div>
@@ -146,6 +151,11 @@ export default function PrivacyPolicy() {
               <li>
                 <strong className="text-text">Apple Sign In / Google Sign In</strong>{" "}
                 — optional authentication providers
+              </li>
+              <li>
+                <strong className="text-text">PostHog</strong> — pseudonymous
+                product analytics (feature usage and funnels). No financial data
+                or personal identifiers are sent.
               </li>
             </ul>
             <p className="mt-3">
