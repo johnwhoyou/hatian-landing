@@ -20,7 +20,7 @@ type HistoryRow = {
   payer_name: string | null; method_label: string | null;
 };
 type Statement = { owner_name: string; contact_name: string; nets: Net[]; history: HistoryRow[] };
-type PaymentMethod = { id: string; template: string; label: string; details: Record<string, unknown> };
+type PaymentMethod = { id: string; label: string; details: Record<string, unknown> };
 
 function fmt(amount: number, currency: string) {
   try {
@@ -45,7 +45,7 @@ async function resolve(token: string) {
 
   const { data: methods } = await supabaseAdmin
     .from("user_payment_methods")
-    .select("id, template, label, details")
+    .select("id, label, details")
     .eq("user_id", link.owner_id)
     .order("sort_order", { ascending: true });
 
@@ -116,7 +116,7 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
                       {row.kind === "expense" ? row.merchant : "Settlement"}
                     </p>
                     <p className="font-body text-xs text-text-secondary truncate">
-                      {row.kind === "expense" ? `Paid by ${row.payer_name}` : row.method_label}
+                      {row.kind === "expense" ? `Paid by ${row.payer_name}` : row.method_label || "Settlement"}
                     </p>
                   </div>
                   <span className={`font-body font-semibold ${positive ? "text-green-600" : "text-red-600"}`}>
