@@ -73,6 +73,7 @@ export async function POST(
   });
   if (error?.code === "P0002") return NextResponse.json({ error: "not found" }, { status: 404 });
   if (error?.code === "23514") return NextResponse.json({ error: "amount exceeds owed" }, { status: 409 });
+  if (error?.code === "22023") return NextResponse.json({ error: "bad request" }, { status: 400 });
   if (error || !data) return NextResponse.json({ error: "could not record" }, { status: 502 });
 
   const recorded = data as Recorded;
@@ -80,7 +81,8 @@ export async function POST(
   await pushToUser(recorded.payer_id, {
     title: "Payment to confirm",
     body: `${recorded.person.name} says they paid ${formatMoney(recorded.amount, recorded.currency)} for ${recorded.merchant}.`,
-    data: { type: "guest_payment", paymentId: recorded.payment_id },
+    // Same shape the app's own pending payments send, so the tap handler and its shared-device recipient check apply.
+    data: { type: "payment_pending", paymentId: recorded.payment_id, recipientUserId: recorded.payer_id },
   });
 
   if (!person) return NextResponse.json({ error: "could not record" }, { status: 502 });
