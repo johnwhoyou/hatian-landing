@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { formatMoney } from "@/lib/format";
 import { PaymentMethods, type PaymentMethod } from "@/components/PaymentMethods";
-import { applyPayment, personKey, type Person } from "./person";
+import { personKey, type Person } from "./person";
 
 type Props = {
   token: string;
@@ -195,10 +195,12 @@ function PayForm({ person, token, payerName, methods, money, onPaid }: {
         method_label: method,
         reference: reference.trim() || undefined,
       }),
-    }).then((res) => (res.ok ? "ok" : res.status), () => null);
+    })
+      .then(async (res) => (res.ok ? ((await res.json()) as { person: Person }).person : res.status))
+      .catch(() => null);
 
-    if (result === "ok") {
-      onPaid(applyPayment(person, parsed.amount));
+    if (result && typeof result === "object") {
+      onPaid(result);
       setSubmit({ phase: "idle" });
     } else {
       setSubmit({ phase: "failed", message: errorCopy(result, payerName) });

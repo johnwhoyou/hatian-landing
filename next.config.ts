@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         source: "/s/:token*",
         headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
       },
+      {
+        source: "/e/:token*",
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
+      },
     ];
   },
 };

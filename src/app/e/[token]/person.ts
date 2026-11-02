@@ -28,16 +28,3 @@ export function parsePerson(p: RawPerson): Person | null {
     default: return null;
   }
 }
-
-const toCents = (n: number) => Math.round(n * 100);
-
-// Mirrors the server's status rule after a recorded claim, so the page can
-// show the new state without refetching.
-export function applyPayment(person: Person & { status: "owes" }, amount: number): Person {
-  const guest = { kind: person.kind, id: person.id, name: person.name, share: person.share };
-  const owedLeft = (toCents(person.owed) - toCents(amount)) / 100;
-  const pendingNow = (toCents(person.pending) + toCents(amount)) / 100;
-  return owedLeft > 0
-    ? { ...guest, status: "owes", owed: owedLeft, pending: pendingNow }
-    : { ...guest, status: "pending", pending: pendingNow };
-}
