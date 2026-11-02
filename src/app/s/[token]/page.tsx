@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { formatMoney } from "@/lib/format";
 import { StatementActions } from "./StatementActions";
 
 export const dynamic = "force-dynamic";
@@ -21,14 +22,6 @@ type HistoryRow = {
 };
 type Statement = { owner_name: string; contact_name: string; nets: Net[]; history: HistoryRow[] };
 type PaymentMethod = { id: string; label: string; details: Record<string, unknown> };
-
-function fmt(amount: number, currency: string) {
-  try {
-    return new Intl.NumberFormat("en-PH", { style: "currency", currency }).format(amount);
-  } catch {
-    return `${currency} ${amount.toFixed(2)}`;
-  }
-}
 
 async function resolve(token: string) {
   const { data: link } = await supabaseAdmin
@@ -76,7 +69,7 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
             statement.nets.map((n) => (
               <p key={n.currency} className="font-heading text-3xl font-extrabold text-text">
                 {n.amount >= 0 ? "You owe " : `${statement.owner_name} owes you `}
-                {fmt(Math.abs(n.amount), n.currency)}
+                {formatMoney(Math.abs(n.amount), n.currency)}
               </p>
             ))
           )}
@@ -120,7 +113,7 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
                     </p>
                   </div>
                   <span className={`font-body font-semibold ${positive ? "text-green-600" : "text-red-600"}`}>
-                    {positive ? "+" : "−"}{fmt(row.amount, row.currency)}
+                    {positive ? "+" : "−"}{formatMoney(row.amount, row.currency)}
                   </span>
                 </li>
               );
