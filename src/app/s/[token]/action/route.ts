@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { formatMoney } from "@/lib/format";
+import { pushToUser } from "@/lib/push";
 
 // ponytail: in-memory per-token rate limit. Single-instance only; move to a
 // shared store (Supabase table / Upstash) if the site scales past one node.
 const lastSent = new Map<string, number>();
 const WINDOW_MS = 10 * 60 * 1000;
-
-function fmt(amount: number, currency: string) {
-  try { return new Intl.NumberFormat("en-PH", { style: "currency", currency }).format(amount); }
-  catch { return `${currency} ${amount.toFixed(2)}`; }
-}
 
 export async function POST(
   req: Request,
@@ -42,26 +39,16 @@ export async function POST(
   const contactName: string = statement?.contact_name ?? "Someone";
   const topNet = (statement?.nets ?? [])[0] as { currency: string; amount: number } | undefined;
 
-  const { data: owner } = await supabaseAdmin
-    .from("users").select("expo_push_token").eq("id", link.owner_id).maybeSingle();
-  if (!owner?.expo_push_token) return NextResponse.json({ error: "unreachable" }, { status: 502 });
-
   const body = type === "paid"
-    ? `${contactName} says they paid${topNet ? " " + fmt(Math.abs(topNet.amount), topNet.currency) : ""}.`
+    ? `${contactName} says they paid${topNet ? " " + formatMoney(Math.abs(topNet.amount), topNet.currency) : ""}.`
     : `${contactName} flagged their statement — take a look.`;
 
-  const push = await fetch("https://exp.host/--/api/v2/push/send", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      to: owner.expo_push_token,
-      title: type === "paid" ? "Payment update" : "Statement flagged",
-      body,
-      data: { type: "statement_action", contactId: link.contact_id },
-      sound: "default",
-    }),
+  const sent = await pushToUser(link.owner_id, {
+    title: type === "paid" ? "Payment update" : "Statement flagged",
+    body,
+    data: { type: "statement_action", contactId: link.contact_id },
   });
-  if (!push.ok) return NextResponse.json({ error: "push failed" }, { status: 502 });
+  if (!sent) return NextResponse.json({ error: "unreachable" }, { status: 502 });
 
   lastSent.set(key, now);
   return NextResponse.json({ ok: true });

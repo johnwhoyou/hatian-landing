@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { formatMoney } from "@/lib/format";
+import { PaymentMethods, type PaymentMethod } from "@/components/PaymentMethods";
 import { StatementActions } from "./StatementActions";
 
 export const dynamic = "force-dynamic";
@@ -20,15 +22,6 @@ type HistoryRow = {
   payer_name: string | null; method_label: string | null;
 };
 type Statement = { owner_name: string; contact_name: string; nets: Net[]; history: HistoryRow[] };
-type PaymentMethod = { id: string; label: string; details: Record<string, unknown> };
-
-function fmt(amount: number, currency: string) {
-  try {
-    return new Intl.NumberFormat("en-PH", { style: "currency", currency }).format(amount);
-  } catch {
-    return `${currency} ${amount.toFixed(2)}`;
-  }
-}
 
 async function resolve(token: string) {
   const { data: link } = await supabaseAdmin
@@ -76,7 +69,7 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
             statement.nets.map((n) => (
               <p key={n.currency} className="font-heading text-3xl font-extrabold text-text">
                 {n.amount >= 0 ? "You owe " : `${statement.owner_name} owes you `}
-                {fmt(Math.abs(n.amount), n.currency)}
+                {formatMoney(Math.abs(n.amount), n.currency)}
               </p>
             ))
           )}
@@ -85,21 +78,7 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
         {/* Payment details */}
         {statement.nets.some((n) => n.amount > 0) && (
           <section className="mb-10">
-            <h2 className="font-heading text-lg font-bold text-text mb-3">How to pay {statement.owner_name}</h2>
-            {methods.length === 0 ? (
-              <p className="font-body text-sm text-text-secondary">
-                Ask {statement.owner_name} how they&apos;d like to be paid.
-              </p>
-            ) : (
-              <ul className="space-y-3">
-                {methods.map((m) => (
-                  <li key={m.id} className="rounded-lg border border-black/10 p-4">
-                    <p className="font-body font-semibold text-text">{m.label}</p>
-                    <PaymentDetail details={m.details} />
-                  </li>
-                ))}
-              </ul>
-            )}
+            <PaymentMethods methods={methods} payeeName={statement.owner_name} />
           </section>
         )}
 
@@ -120,7 +99,7 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
                     </p>
                   </div>
                   <span className={`font-body font-semibold ${positive ? "text-green-600" : "text-red-600"}`}>
-                    {positive ? "+" : "−"}{fmt(row.amount, row.currency)}
+                    {positive ? "+" : "−"}{formatMoney(row.amount, row.currency)}
                   </span>
                 </li>
               );
@@ -136,20 +115,5 @@ export default async function StatementPage({ params }: { params: Promise<{ toke
         </a>
       </article>
     </main>
-  );
-}
-
-function PaymentDetail({ details }: { details: Record<string, unknown> }) {
-  const line = (details.phone as string) || (details.account_number as string) ||
-    (details.account_id as string) || (details.notes as string) || "";
-  const qr = details.qr_url as string | undefined;
-  return (
-    <>
-      {line && <p className="font-body text-sm text-text-secondary mt-1">{line}</p>}
-      {qr && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={qr} alt="Payment QR" className="mt-3 w-40 h-40 rounded-md object-contain" />
-      )}
-    </>
   );
 }
